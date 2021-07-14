@@ -2,16 +2,27 @@ package io.muic.ssc.webapp.basic.security;
 
 public class User {
 
+    private long id;
     private String username;
-
     private String password;
+    private String displayName;
 
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(long id, String username, String password, String displayName) {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.displayName = displayName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -28,5 +39,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

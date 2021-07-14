@@ -1,16 +1,16 @@
 package io.muic.ssc.webapp.basic.security;
 
+import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 public class SecurityService {
 
+    @Setter
     private UserService userService;
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     public String getCurrentUsername(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -19,8 +19,18 @@ public class SecurityService {
     }
 
     public boolean isAuthorized(HttpServletRequest request) {
-        String username = getCurrentUsername(request);
-        return userService.checkIfUserExists(username);
+        String username = (String) request.getSession()
+                .getAttribute("username");
+        return (username != null && userService.findByUsername(username) != null);
+    }
+
+    public boolean authenticate(String username, String password, HttpServletRequest request) {
+        User user = userService.findByUsername(username);
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+            request.getSession().setAttribute("username", username);
+            return true;
+        }
+        return false;
     }
 
     public void logout(HttpServletRequest request) {
