@@ -22,9 +22,9 @@ public class UserService {
 
 
     @Setter
-    private static MySQLDatabase database;
+    private static MySQLDatabase database = new MySQLDatabase();
 
-    private static UserService service;
+    private static UserService service = new UserService();
 
     public UserService() {
     }
@@ -77,6 +77,13 @@ public class UserService {
         } catch (SQLException throwables) {
             return null;
         }
+    }
+
+    public static void main(String[] args) throws UserServiceException {
+//        UserService userService = new UserService();
+//        System.out.println(service.findAll());
+        service.createUser("admin", "12345", "Admin");
+
     }
 
     /**
