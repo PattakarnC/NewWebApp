@@ -79,12 +79,11 @@ public class UserService {
         }
     }
 
-    public static void main(String[] args) throws UserServiceException {
+//    public static void main(String[] args) throws UserServiceException {
 //        UserService userService = new UserService();
 //        System.out.println(service.findAll());
-        service.createUser("admin", "12345", "Admin");
-
-    }
+//        service.createUser("admin", "12345", "Admin");
+//    }
 
     /**
      * list all users in the database
